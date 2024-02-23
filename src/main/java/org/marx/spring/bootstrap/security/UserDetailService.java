@@ -1,6 +1,5 @@
-package org.marx.spring.bootstrap.service;
+package org.marx.spring.bootstrap.security;
 
-import org.marx.spring.bootstrap.model.User;
 import org.marx.spring.bootstrap.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,8 +17,9 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User with email = " + email + " not exist!"));
-        return user;
+        return userRepository.findByEmail(email)
+                .map(UserPrincipal::new)
+                .orElseThrow(() -> new UsernameNotFoundException("user not found"));
     }
 
 }

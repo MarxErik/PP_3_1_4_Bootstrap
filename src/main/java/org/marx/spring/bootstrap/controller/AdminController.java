@@ -7,7 +7,12 @@ import org.marx.spring.bootstrap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 
@@ -25,9 +30,10 @@ public class AdminController {
         this.roleService = roleService;
     }
 
+
     @GetMapping()
-    public String pageForAdmin(Model model, Principal principal) {
-        model.addAttribute("admin", userService.findByUsername(principal.getName()));
+    public String showAll(Model model, Principal principal) {
+        model.addAttribute("admin", userService.findByUsername(principal.getName()).get());
         model.addAttribute("users", userService.getUserList());
         model.addAttribute("user", new User());
         model.addAttribute("roles", roleService.findAllRoles());
@@ -36,19 +42,19 @@ public class AdminController {
 
     @PostMapping
     public String create(@ModelAttribute("user") User user) {
-        userService.createUser(user);
+        userService.create(user);
         return "redirect:/adminBootstrap";
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user) {
-        userService.updateUser(user);
+        userService.update(user);
         return "redirect:/adminBootstrap";
     }
 
     @DeleteMapping
     public String delete(@ModelAttribute("user") User user) {
-        userService.deleteUser(user.getId());
+        userService.deleteById(user.getId());
         return "redirect:/adminBootstrap";
     }
 

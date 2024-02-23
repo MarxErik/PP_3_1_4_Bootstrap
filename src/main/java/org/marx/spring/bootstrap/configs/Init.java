@@ -7,7 +7,6 @@ import org.marx.spring.bootstrap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,20 +30,20 @@ public class Init {
         Set<Role> adminRoles = new HashSet<>();
         adminRoles.add(adminRole);
 
-        roleService.createRole(adminRole);
+        roleService.save(adminRole);
 
         Role userRole = new Role("USER");
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(userRole);
 
-        roleService.createRole(userRole);
+        roleService.save(userRole);
 
         User admin = new User("ADMIN", "ADMIN", (byte) 20, "admin@mail.ru", "ADMIN", adminRoles);
 
-        userService.createUser(admin);
+        userService.create(admin);
 
         User user = new User("user", "user", (byte) 20, "user@mail.ru", "user", userRoles);
 
-        userService.createUser(user);
+        userService.create(user);
     }
 }

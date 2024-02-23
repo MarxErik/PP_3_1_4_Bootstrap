@@ -20,7 +20,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional
-    public void createRole(Role role) {
+    public void save(Role role) {
         roleRepository.save(role);
     }
 

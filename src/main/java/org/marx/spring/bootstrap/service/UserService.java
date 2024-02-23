@@ -3,17 +3,20 @@ package org.marx.spring.bootstrap.service;
 import org.marx.spring.bootstrap.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
+    Optional<User> findByUserEmail(String email);
+
     List<User> getUserList();
 
-    boolean createUser(User user);
+    void create(User user);
 
-    boolean deleteUser(Long userId);
+    void deleteById(Long userId);
 
-    User updateUser(User updateUser);
+    void update(User updateUser);
 
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
 }

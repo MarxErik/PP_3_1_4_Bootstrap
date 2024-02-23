@@ -20,7 +20,7 @@ public class UserController {
 
     @GetMapping("/user")
     public String show(Principal principal, Model model) {
-        model.addAttribute("user", userService.findByUsername(principal.getName()));
+        model.addAttribute("user", userService.findByUsername(principal.getName()).get());
         return "userBootstrap";
     }
 
