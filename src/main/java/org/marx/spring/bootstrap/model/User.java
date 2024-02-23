@@ -64,5 +64,10 @@ public class User {
         this.password = password;
         this.roles = roles;
     }
-
+    
+    public String roleToString() {
+        StringBuilder sb = new StringBuilder();
+        this.roles.forEach(x -> sb.append(x.getName()).append(" "));
+        return sb.toString();
+    }
 }
